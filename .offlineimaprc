@@ -1,0 +1,54 @@
+[general]
+# List of accounts to be synced, separated by a comma.
+accounts = Gmail, SJTU
+maxsyncaccounts = 2
+
+[Account Gmail]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = Gmail-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = Gmail-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+[Repository Gmail-local]
+type = Maildir
+localfolders = ~/Maildir/Gmail
+nametrans = lambda foldername: re.sub ('^Gmail', '[Gmail]',
+	    	   	       	      re.sub ('_', ' ', foldername))
+
+[Repository Gmail-remote]
+type = Gmail
+remoteuser = user@gmail.com
+remotepass = password
+nametrans = lambda foldername: re.sub ('^\[Gmail\]', 'Gmail',
+	    	   	       	      re.sub (' ', '_', foldername))
+folderfilter = lambda folder: folder not in ['[Gmail]/All Mail', '[Gmail]/Important']
+
+# Necessary as of OfflineIMAP 6.5.4
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+#######################################################################
+
+[Account SJTU]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = SJTU-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = SJTU-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+[Repository SJTU-local]
+type = Maildir
+localfolders = ~/Maildir/SJTU
+
+[Repository SJTU-remote]
+type = IMAP
+remotehost = imap.sjtu.edu.cn
+remoteuser = user@sjtu.edu.cn
+remotepass = password
+#nametrans = lambda foldername: re.sub (' ', '_', foldername)
+folderfilter = lambda folder: folder not in ['Contacts', 'Emailed Contacts', 'Chats']
+
+# Necessary as of OfflineIMAP 6.5.4
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
