@@ -25,6 +25,7 @@ myManageHook = composeAll
    , className =? "Google-chrome-stable" --> doShift "7"
    , className =? "Fqterm.bin" --> doShift "8"
    , className =? "Skype" --> doShift "9"
+   , className =? "Steam" --> doShift "9"
    , className =? "Pidgin" --> doShift "2"
    , className =? "Thunderbird" --> doShift "3"
    , className =? "Eclipse" --> doShift "4"
@@ -49,8 +50,6 @@ myTerminal = "urxvt"
 
 myStartupHook = do
   setDefaultCursor xC_left_ptr
-  --spawn "xscreensaver -nosplash"
-  --spawn "compton -b"
   spawn "feh --bg-scale Pictures/elememtary/OurNightUnderTheStars.jpg"
 
 main = do
