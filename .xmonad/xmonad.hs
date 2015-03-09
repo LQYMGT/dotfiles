@@ -10,19 +10,25 @@ import qualified XMonad.StackSet as W
 -- IM
 import XMonad.Layout.IM
 import Data.Ratio ((%))
-
 -- currentWs
 import XMonad.Hooks.ManageHelpers
+-- reflect
+import XMonad.Layout.Reflect
 
-defaultLayouts =  withIM (1%7) (ClassName "Pidgin") (ResizableTall 1 (3/100) (1/2) [])
+defaultLayouts =  withIM (1%7) (ClassName "Pidgin")
+                 (reflectHoriz $ ResizableTall 1 (3/100) (1/2) [])
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 myManageHook = composeAll
    [ className =? "Emacs" --> doShift "1"
-   , className =? "Firefox" --> doShift "7"
+   , className =? "Firefox"
+     <&&> stringProperty "WM_WINDOW_ROLE" =? "browser"
+     --> doShift "7"
 --   , className =? "Chromium" --> doShift "7"
-   , className =? "Google-chrome-stable" --> doShift "7"
+   , className =? "Google-chrome-stable"
+     <&&> stringProperty "WM_WINDOW_ROLE" =? "browser"
+     --> doShift "7"
    , className =? "Fqterm.bin" --> doShift "8"
    , className =? "Skype" --> doShift "9"
    , className =? "Steam" --> doShift "9"
