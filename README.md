@@ -1,5 +1,7 @@
 # dotfiles
-Configuration files of my desktop -- Arch Linux.
+Configuration files of my desktop -- ~~Arch Linux.~~ Gentoo Linux.
+
+Note: Now I have changed to Gentoo Linux, but I think there configurations should work in most common distros.
 
 # Urxvt
 Nothing special :)
