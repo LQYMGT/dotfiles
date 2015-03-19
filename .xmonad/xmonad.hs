@@ -15,6 +15,8 @@ import XMonad.Hooks.ManageHelpers
 -- reflect
 import XMonad.Layout.Reflect
 
+import XMonad.Hooks.SetWMName
+
 defaultLayouts =  withIM (1%7) (ClassName "Pidgin")
                  (reflectHoriz $ ResizableTall 1 (3/100) (1/2) [])
 
@@ -29,7 +31,7 @@ myManageHook = composeAll
    , className =? "Google-chrome-stable"
      <&&> stringProperty "WM_WINDOW_ROLE" =? "browser"
      --> doShift "7"
-   , className =? "Fqterm.bin" --> doShift "8"
+   , className =? "QTerm" --> doShift "8"
    , className =? "Skype" --> doShift "9"
    , className =? "Steam" --> doShift "9"
    , className =? "Pidgin" --> doShift "2"
@@ -37,6 +39,7 @@ myManageHook = composeAll
    , className =? "Eclipse" --> doShift "4"
    , className =? "Java" --> doShift "4"
    , className =? "jetbrains-android-studio" --> doShift "4"
+   , className =? "jetbrains-idea-ce" --> doShift "4"
 --   , currentWs =? "9" --> doFloat
    , className =? "Pavucontrol" --> doFloat
    , className =? "feh" --> doFloat
@@ -52,9 +55,10 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     t = 0       -- distance from top edge
     l = 1-w     -- distance from left edge
 
-myTerminal = "urxvt"
+myTerminal = "termite"
 
 myStartupHook = do
+  setWMName "LG3D"
   setDefaultCursor xC_left_ptr
   spawn "feh --bg-scale Pictures/elememtary/OurNightUnderTheStars.jpg"
 
@@ -80,4 +84,4 @@ main = do
      , ("M-<Backspace>", spawn "xscreensaver-command --lock")
      ]
      where 
-       scratchPad = scratchpadSpawnActionTerminal myTerminal
+       scratchPad = scratchpadSpawnActionCustom "termite --name scratchpad"
